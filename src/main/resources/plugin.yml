@@ -1,0 +1,6 @@
+name: SkyriftPlugin
+version: "1.0.0"
+api: ["1.0.7"]
+author: 3vandev
+description: Skyrift Testing Plugin
+main: org.skyrift.Main
