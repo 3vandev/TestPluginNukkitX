@@ -13,7 +13,7 @@ import org.skyrift.modules.Logic;
 // Simple json database for matchmaking
 public class MatchmakingQueue {
     private final Config queueConfig;
-    private Logic logic;
+    private Main main;
 
     public MatchmakingQueue(Main main) {
         queueConfig = new Config(new File("plugins/skyrift/queue.yml"), Config.YAML);
@@ -23,7 +23,7 @@ public class MatchmakingQueue {
             queueConfig.save();
         }
 
-        this.logic = main.getLogic();
+        this.main = main;
     }
 
     public void addPlayer(Player player) {
@@ -36,7 +36,7 @@ public class MatchmakingQueue {
 
         // Game start
         if(queue.size() >= 1) {
-            this.logic.startGame(queue);
+            Logic.startGame(queue, main);
             this.clearQueue();
         }
     }

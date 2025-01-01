@@ -3,13 +3,10 @@ package org.skyrift.commands;
 import cn.nukkit.Player;
 import cn.nukkit.command.Command;
 import cn.nukkit.command.CommandSender;
-import cn.nukkit.level.Level;
-import cn.nukkit.utils.LevelException;
 import cn.nukkit.utils.TextFormat;
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.Match;
 import org.skyrift.Main;
-import org.w3c.dom.Text;
 import org.skyrift.modules.MatchmakingQueue;
+import org.skyrift.modules.Logic;
 
 public class Queue extends Command {
     private MatchmakingQueue queue;
@@ -32,6 +29,11 @@ public class Queue extends Command {
         }
 
         String action = args[0];
+
+        if(Logic.isPlayerInGame(player)) {
+            player.sendMessage("You are currently in a game use /lobby to return to the lobby");
+            return false;
+        }
 
         if(action.equals("join")) {
             if(queue.isPlayerInQueue(player)) {
@@ -58,23 +60,6 @@ public class Queue extends Command {
         }
 
         player.getServer().broadcastMessage(queue.getQueue().toString());
-
-//        player.getServer().loadLevel(worldName);
-//        Level gameWorld = player.getServer().getLevelByName(worldName);
-//
-//        if(gameWorld == null) {
-//            player.sendMessage("The game world does not exist.");
-//
-//            return false;
-//        }
-//
-//        try {
-//            player.teleport(gameWorld.getSpawnLocation());
-//        }
-//        catch(LevelException e) {
-//            player.sendMessage("There was an error");
-//            e.printStackTrace();
-//        }
 
         return true;
     }
